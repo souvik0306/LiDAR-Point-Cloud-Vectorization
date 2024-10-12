@@ -19,7 +19,6 @@ from rasterio.features import shapes
 from shapely.geometry import Polygon
 
 # 2. Data Profiling
-
 # Load the neighborhood point cloud (ensure lazrs or laszip is installed for .laz files)
 try:
     las = laspy.read(r'neighborhood.laz')
@@ -42,22 +41,22 @@ else:
 
 # 3.1. Building points initialization
 # Create a mask to filter points classified as buildings (classification code 6)
-pts_mask = las.classification == 2
-
-# Extract coordinates of the filtered points
+pts_mask = las.classification == 6
 xyz_t = np.vstack((las.x[pts_mask], las.y[pts_mask], las.z[pts_mask]))
+pcd_o3d = o3d.geometry.PointCloud()
+pcd_o3d.points = o3d.utility.Vector3dVector(xyz_t.transpose())
+pcd_center = pcd_o3d.get_center()
+pcd_o3d.translate(-pcd_center)
+# o3d.visualization.draw_geometries([pcd_o3d])
 
-# Check if any points are found with the specified classification
-if xyz_t.shape[1] > 0:
-    # Convert to Open3D PointCloud and visualize
-    pcd_o3d = o3d.geometry.PointCloud()
-    pcd_o3d.points = o3d.utility.Vector3dVector(xyz_t.transpose())
+# Ground Plane
+pts_mask = las.classification == 2
+xyz_t = np.vstack((las.x[pts_mask], las.y[pts_mask], las.z[pts_mask]))
+ground_pts = o3d.geometry.PointCloud()
+ground_pts.points = o3d.utility.Vector3dVector(xyz_t.transpose())
+ground_pts.translate(-pcd_center)
+# o3d.visualization.draw_geometries([ground_pts])
 
-    # Center the point cloud by translating it
-    pcd_center = pcd_o3d.get_center()
-    pcd_o3d.translate(-pcd_center)
-
-    # Visualize the point cloud
-    o3d.visualization.draw_geometries([pcd_o3d])
-else:
-    print("No points found with classification code 6.")
+# Get Average Distance between building points
+nn_distance = np.mean(pcd_o3d.compute_nearest_neighbor_distance())
+print("Average distance between building points:", nn_distance)

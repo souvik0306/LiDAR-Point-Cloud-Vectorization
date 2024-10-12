@@ -1,3 +1,5 @@
 *.las
 *.lasx
 *.zip
+*ipynb
+*.DS_Store
