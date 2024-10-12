@@ -153,4 +153,9 @@ alpha = 20
 mesh = o3d.geometry.TriangleMesh.create_from_point_cloud_alpha_shape(temp_o3d, alpha)
 mesh.compute_vertex_normals()
 mesh.paint_uniform_color([0.5, 0.4, 0])
-o3d.visualization.draw_geometries([temp_o3d, mesh, segment], mesh_show_back_face=True)
+# o3d.visualization.draw_geometries([temp_o3d, mesh, segment], mesh_show_back_face=True)
+
+# 11. Post-Porcessing Operations and Export ˀ
+mesh.translate(pcd_center)
+o3d.io.write_triangle_mesh("building_mesh.ply", mesh, write_ascii=True, compressed=True, write_vertex_normals=False, write_vertex_colors=False, write_triangle_uvs=False)
+building_gdf.to_file("building_gdf.shp")
