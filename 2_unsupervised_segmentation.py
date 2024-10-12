@@ -96,10 +96,19 @@ pcd_tree = o3d.geometry.KDTreeFlann(ground_pts)
 
 sample = ground_pts.select_by_index(idx, invert=False)
 sample.paint_uniform_color([0.5, 0.5, 0.5])
-o3d.visualization.draw_geometries([sample, ground_pts])
+# o3d.visualization.draw_geometries([sample, ground_pts])
 
 ground_zero = sample.get_center()[2]
 height = segment.get_max_bound()[2] - ground_zero
 print("Height of the building (Final):", height)
 print("Difference in height:", height - height_test)
 
+# 7.2 Computing parameters
+building_gdf[['id']] = sel
+building_gdf[['height']] = height
+building_gdf[['area']] = building_vector.area
+building_gdf[['perimeter']] = building_vector.length
+building_gdf[['local_cx', 'local_cy', 'local_cz']] = np.asarray([building_vector.centroid.x, building_vector.centroid.y, ground_zero])
+building_gdf[['transl_x', 'transl_y', 'transl_z']] = pcd_center
+building_gdf[['pts_number']] = len(segment.points)
+print(building_gdf.head(1))
