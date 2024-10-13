@@ -182,6 +182,7 @@ for sel in range(max_label+1):
     [k, idx, _] = pcd_tree.search_knn_vector_3d(query_point, 50)
     sample = ground_pts.select_by_index(idx, invert=False)
     ground_zero = sample.get_center()[2]    
+    
     # Create a geodataframe
     building_gdf = gpd.GeoDataFrame(geometry=[building_vector], crs='EPSG:26910')
     building_gdf[['id']] = sel
@@ -210,8 +211,7 @@ for sel in range(max_label+1):
     mesh.translate(pcd_center)
     mesh.paint_uniform_color(random_color_generator())
     
-    
-    o3d.io.write_triangle_mesh(f"building_mesh_"+str(sel)+".ply", mesh, write_ascii=True, compressed=True, write_vertex_normals=False, write_vertex_colors=False, write_triangle_uvs=False)
+    o3d.io.write_triangle_mesh(f"Automation_Results/building_mesh_"+str(sel)+".ply", mesh, write_ascii=True, compressed=True, write_vertex_normals=False, write_vertex_colors=False, write_triangle_uvs=False)
     
 print(buildings_gdf)
 buildings_gdf.to_file("neighborhood_buildings.shp")   
