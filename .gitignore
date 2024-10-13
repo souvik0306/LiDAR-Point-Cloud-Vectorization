@@ -3,9 +3,9 @@
 *.zip
 *ipynb
 *.DS_Store
-*.ply
-*.cpg
-*.dbf
-*.prj
-*.shp
-*.shx
+# *.ply
+# *.cpg
+# *.dbf
+# *.prj
+# *.shp
+# *.shx
