@@ -1,24 +1,17 @@
 # Import necessary libraries
 import numpy as np
 import matplotlib.pyplot as plt
-# 3D processing libraries
 import open3d as o3d
 import laspy
-# Geospatial libraries
 import pandas as pd
-import rasterio
 import alphashape as ash
 import geopandas as gpd
 import shapely as sh
-from rasterio.transform import from_origin
-from rasterio.enums import Resampling
-from rasterio.features import shapes
-from shapely.geometry import Polygon
 
 # 2. Data Profiling
 # Load the neighborhood point cloud (ensure lazrs or laszip is installed for .laz files)
 try:
-    las = laspy.read(r'neighborhood.laz')
+    las = laspy.read(r'data/neighborhood.laz')
 except laspy.LaspyException as e:
     print(f"Error reading the LAS file: {e}")
 
@@ -156,7 +149,7 @@ mesh.compute_vertex_normals()
 mesh.paint_uniform_color([0.5, 0.4, 0])
 # o3d.visualization.draw_geometries([temp_o3d, mesh, segment], mesh_show_back_face=True)
 
-# 11. Post-Porcessing Operations and Export ˀ
+# 11. Post-Porcessing Operations and Export
 # mesh.translate(pcd_center)
 # o3d.io.write_triangle_mesh("building_mesh.ply", mesh, write_ascii=True, compressed=True, write_vertex_normals=False, write_vertex_colors=False, write_triangle_uvs=False)
 # building_gdf.to_file("building_gdf.shp")
@@ -215,5 +208,3 @@ for sel in range(max_label+1):
     
 print(buildings_gdf)
 buildings_gdf.to_file("neighborhood_buildings.shp")   
-    
-        

@@ -1,23 +1,17 @@
 # Import necessary libraries
 import numpy as np
 import matplotlib.pyplot as plt
-# 3D processing libraries
 import open3d as o3d
 import laspy
-# Geospatial libraries
-import rasterio
+import pandas as pd
 import alphashape as ash
 import geopandas as gpd
 import shapely as sh
-from rasterio.transform import from_origin
-from rasterio.enums import Resampling
-from rasterio.features import shapes
-from shapely.geometry import Polygon
 
 # 2. Data Profiling
 # Load the neighborhood point cloud (ensure lazrs or laszip is installed for .laz files)
 try:
-    las = laspy.read(r'neighborhood.laz')
+    las = laspy.read(r'data/neighborhood.laz')
 except laspy.LaspyException as e:
     print(f"Error reading the LAS file: {e}")
 
