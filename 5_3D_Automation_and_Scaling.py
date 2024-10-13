@@ -181,8 +181,7 @@ for sel in range(max_label+1):
     pcd_tree = o3d.geometry.KDTreeFlann(ground_pts)
     [k, idx, _] = pcd_tree.search_knn_vector_3d(query_point, 50)
     sample = ground_pts.select_by_index(idx, invert=False)
-    sample.paint_uniform_color([0.5, 0.5, 0.5])
-    
+    ground_zero = sample.get_center()[2]    
     # Create a geodataframe
     building_gdf = gpd.GeoDataFrame(geometry=[building_vector], crs='EPSG:26910')
     building_gdf[['id']] = sel
