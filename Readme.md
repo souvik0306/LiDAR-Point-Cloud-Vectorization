@@ -1,5 +1,4 @@
 # LiDAR Point Cloud Vectorization
-
 In this project, I’m working on vectorizing LiDAR data using the [Vancouver dataset](https://opendata.vancouver.ca/explore/dataset/lidar-2022/map/?location=11,49.31483,-123.14438). The goal is to take raw 3D point cloud data, classify it, and convert it into useful vector shapes, such as building footprints and vegetation outlines.
 
 ## Classes
@@ -34,15 +33,15 @@ I’m using the Vancouver dataset, which provides rich LiDAR data for experiment
 - Generate clean 3D models from the data.
 - Filter out noise and improve data quality for better results.
 
-## How to Use
-
-### Environment Setup
-
-Create a virtual environment (I use Conda) and install required libraries like `open3d`, `numpy`, and `laspy`.
-
 ### Running the Pipeline
 
 1. Load the LiDAR dataset.
 2. Classify the points.
 3. Vectorize the results.
 4. Visualize the 3D models with Open3D or export the results for further analysis.
+
+> **Note:** Open3D requires Python 3.11 or lower.
+
+### References
+
+- Used this video for reference: [YouTube Video](https://www.youtube.com/watch?v=7SPLEDyCrmw)
